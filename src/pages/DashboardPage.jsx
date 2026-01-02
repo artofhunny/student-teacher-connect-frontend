@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   LayoutDashboard,
   FileText,
@@ -15,8 +15,8 @@ import AssignmentCard from "../components/AssignmentCard";
 import { addAssignments } from "../utils/assignmentSlice";
 import AssignmentContainer from "../components/AssignmentContainer";
 import PostAssignment from "../components/PostAssignment";
-
-
+import { BASE_URL } from "../utils/constants";
+import { useNavigate } from "react-router-dom";
 
 const TABS = [
   {
@@ -39,6 +39,8 @@ const DashboardPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("assignments");
 
+  const navigate = useNavigate();
+
   const user = useSelector((store) => store.user);
 
   const visibleTabs = TABS.filter(
@@ -49,12 +51,49 @@ const DashboardPage = () => {
     (tab) => tab.key === activeTab
   )?.component;
 
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     if (!visibleTabs.find((tab) => tab.key === activeTab)) {
       setActiveTab(visibleTabs[0]?.key);
     }
   }, [user?.role]);
+
+  const handleLogout = async () => {
+    try {
+    const response = await fetch(BASE_URL + "/auth/logout", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      // Logout successful
+      console.log("Logged out successfully");
+      navigate("/");
+    } else {
+      const errorData = await response.json();
+      console.error("Logout failed:", errorData.message);
+    }
+  } catch (error) {
+    console.error("Error logging out:", error);
+  }
+  }
 
   return (
     <div className="flex h-screen bg-slate-100 overflow-hidden">
@@ -112,9 +151,26 @@ const DashboardPage = () => {
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <UserCircle size={28} />
-            {user && <span className="text-sm">Hi, {user.fullName}</span>}
+          <div className="relative" ref={dropdownRef}>
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => setOpen(!open)}
+            >
+              <UserCircle size={28} />
+              {user && <span className="text-sm">Hi, {user.fullName}</span>}
+            </div>
+
+            {/* Dropdown */}
+            {open && (
+              <div className="absolute right-0 mt-2 w-32 bg-white text-black rounded-md shadow-lg">
+                <button
+                  onClick={handleLogout}
+                  className="w-full px-4 py-2 text-sm text-left hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </header>
 

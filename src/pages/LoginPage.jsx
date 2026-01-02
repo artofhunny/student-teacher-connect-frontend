@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
-import { BASE_URL, URL } from '../utils/constants';
+import { BASE_URL } from '../utils/constants';
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -13,6 +14,7 @@ const LoginPage = () => {
   const [role, setRole] = useState('select-role');
   
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // Error and Loading states
   const [apiError, setApiError] = useState('');
@@ -53,10 +55,11 @@ const LoginPage = () => {
 
       // SUCCESS LOGIC
       dispatch(addUser(result.data));
+      navigate("/dashboard");
 
-      console.log("Success:", result);
-      console.log("Success:", result.data);
-      alert(isLogin ? "Login Successful!" : "Registration Successful!");
+      // console.log("Success:", result);
+      // console.log("Success:", result.data);
+      // alert(isLogin ? "Login Successful!" : "Registration Successful!");
       
       // Usually you would redirect here: window.location.href = "/dashboard";
 
@@ -132,7 +135,7 @@ const LoginPage = () => {
               />
               
               <input 
-                type="password" 
+                type="text" 
                 placeholder="Password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

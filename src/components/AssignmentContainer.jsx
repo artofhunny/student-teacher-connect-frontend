@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignments } from "../utils/assignmentSlice";
 import AssignmentCard from "./AssignmentCard";
-import { BASE_URL, URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 
 const AssignmentContainer = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const AssignmentContainer = () => {
 
       const result = await res.json();
       // console.log(result)
-      dispatch(addAssignments(result));
+      dispatch(addAssignments(result.data));
     } catch (error) {
       console.error(error);
     }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BASE_URL, URL } from '../utils/constants';
+import { BASE_URL } from '../utils/constants';
 
 const PostAssignment = () => {
   // Separate state variables for each input

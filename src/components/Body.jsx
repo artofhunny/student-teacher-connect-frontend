@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
-import { BASE_URL, URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants";
 
 const Body = () => {
   const dispatch = useDispatch();

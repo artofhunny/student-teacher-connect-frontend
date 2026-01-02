@@ -1,0 +1,1 @@
+export const URL = "https://student-teacher-connect-backend.onrender.com";

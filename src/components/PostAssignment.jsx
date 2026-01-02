@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { URL } from '../utils/constants';
 
 const PostAssignment = () => {
   // Separate state variables for each input
@@ -25,13 +26,11 @@ const PostAssignment = () => {
 
     try {
       // 2. API Integration
-      const response = await fetch('http://localhost:3200/assignment', {
+      const response = await fetch( URL + '/assignment', {
         method: 'POST',
         credentials: "include",
         headers: {
           'Content-Type': 'application/json',
-        //   // Assuming your authMiddleware looks for a Bearer token
-        //   'Authorization': `Bearer ${localStorage.getItem('token')}` 
         },
         body: JSON.stringify({
           title,

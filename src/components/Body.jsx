@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { addUser } from "../utils/userSlice";
+import { URL } from "../utils/constants";
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -9,7 +10,7 @@ const Body = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch("http://localhost:3200/profile", {
+      const res = await fetch(URL + "/profile", {
         credentials: "include",
       });
       const result = await res.json();

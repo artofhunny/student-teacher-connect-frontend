@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
+import { URL } from '../utils/constants';
 
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -37,7 +38,7 @@ const LoginPage = () => {
       : { fullName, email, password, role };
 
     try {
-      const response = await fetch(`http://localhost:3200${url}`, { // Update with your actual API URL
+      const response = await fetch(`${URL}${url}`, { // Update with your actual API URL
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

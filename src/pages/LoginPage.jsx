@@ -77,7 +77,7 @@ const LoginPage = () => {
           <h1 className="text-4xl font-bold leading-tight mb-4">
             Welcome to <br /> Student-Teacher <br /> Connect
           </h1>
-          <p className="text-blue-100 text-lg">Your hub for simplified learning.</p>
+          <p className="text-blue-100 text-lg">Your hub for simplified learning</p>
         </div>
 
         {/* Right Side: Form Section */}

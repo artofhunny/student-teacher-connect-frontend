@@ -1,1 +1,1 @@
-export const URL = "https://student-teacher-connect-backend.onrender.com";
+export const BASE_URL = "https://student-teacher-connect-backend.onrender.com";

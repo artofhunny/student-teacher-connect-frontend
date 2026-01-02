@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignments } from "../utils/assignmentSlice";
 import AssignmentCard from "./AssignmentCard";
-import { URL } from "../utils/constants";
+import { BASE_URL, URL } from "../utils/constants";
 
 const AssignmentContainer = () => {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const AssignmentContainer = () => {
 
   const fetchAssignments = async () => {
     try {
-      const res = await fetch( URL + "/assignment", {
+      const res = await fetch( BASE_URL + "/assignment", {
         credentials: "include",
       });
 

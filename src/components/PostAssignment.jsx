@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { URL } from '../utils/constants';
+import { BASE_URL, URL } from '../utils/constants';
 
 const PostAssignment = () => {
   // Separate state variables for each input
@@ -26,7 +26,7 @@ const PostAssignment = () => {
 
     try {
       // 2. API Integration
-      const response = await fetch( URL + '/assignment', {
+      const response = await fetch( BASE_URL + '/assignment', {
         method: 'POST',
         credentials: "include",
         headers: {
